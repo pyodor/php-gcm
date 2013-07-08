@@ -1,0 +1,23 @@
+{
+    "name": "tarsier/php-gcm",
+    "description": "A PHP library for sending GCM user notifications",
+    "keywords": ["gcm", "php"],
+    "homepage": "https://github.com/pyodor/php-gcm",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Diosdado Campo",
+            "email": "csicebu@gmail.com"
+        }
+    ],
+	"support": {
+		"issues": "https://github.com/pyodor/php-gcm/issues",
+		"source": "https://github.com/pyodor/php-gcm"
+	},
+    "require": {
+        "guzzle/http": "3.7.*"
+    },
+    "autoload": {
+        "psr-0": { "Tarsier": "src/" }
+    }
+}
