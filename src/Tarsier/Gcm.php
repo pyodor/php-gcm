@@ -1,11 +1,9 @@
-<?php 
-
-namespace Tarsier;
+<?php namespace Tarsier;
 
 use Guzzle\Http\Client;
 
-class Gcm
-{
+class Gcm {
+
     private $client;
     private $response;
     private $apiKey;
