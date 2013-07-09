@@ -1,13 +1,17 @@
 {
-    "name": "tarsier/php-gcm",
+    "name": "pyodor/php-gcm",
     "description": "A PHP library for sending GCM user notifications",
     "keywords": ["gcm", "php"],
     "homepage": "https://github.com/pyodor/php-gcm",
-    "license": "Apache-2.0",
+    "license": "WTFPL",
     "authors": [
         {
             "name": "Diosdado Campo",
-            "email": "csicebu@gmail.com"
+            "homepage": "https://github.com/pyodor"
+        },
+        {
+            "name": "Nano Equipment PTE LTD",
+            "homepage": "http://www.neseapl.com/"
         }
     ],
 	"support": {

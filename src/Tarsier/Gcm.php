@@ -14,6 +14,18 @@ class Gcm
     public function __construct($googleApiKey)
     {
         $this->apiKey = $googleApiKey;
+        
+        $headers = array(
+            'Authorization' => 'key='.$this->apiKey,
+        );
+
+        $this->client = new Client($this->url, array(
+            'request.options' => array(
+                'headers' => $headers
+            )
+        ));
+
+        $this->client->setUserAgent('pyodor/php-gcm/0.1.0', true);
     }
 
 
@@ -23,17 +35,7 @@ class Gcm
             'registration_ids' => $registrationIds,
             'data' => $message,
         );
-        $headers = array(
-            'Authorization: key=' . $this->apiKey,
-            'Content-Type: application/json'
-        );
-
-        $this->client = new Client($this->url, array(
-            'request.options' => array(
-                'headers' => $headers
-            )
-        ));
-
+        
         $request = $this->client->post('/gcm/send')
             ->addPostFields($fields);
 
@@ -42,6 +44,6 @@ class Gcm
 
     public function getResponse()
     {
-        return $this->response;
+        return $this->response->getBody(true);
     }
 }
