@@ -8,6 +8,7 @@ class Gcm {
     private $response;
     private $apiKey;
     private $url = 'https://android.googleapis.com/';
+    private $queue = array();
 
     public function __construct($googleApiKey)
     {
@@ -38,6 +39,22 @@ class Gcm {
             ->addPostFields($fields);
 
         $this->response = $request->send();
+    }
+
+    public function add($registrationId, $message) {
+        $this->queue[] = array(
+            'registration_ids' => $registrationId,
+            'data' => $message,
+        );
+    }
+
+    public function sendQueue() {
+        foreach($this->queue as $q) {
+            $request = $this->client->post('/gcm/send')
+                ->addPostFields($q);
+
+            $this->response = $request->send();
+        }
     }
 
     public function getResponse()
