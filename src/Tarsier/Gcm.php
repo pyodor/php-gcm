@@ -30,15 +30,27 @@ class Gcm {
 
     public function sendNotification($registrationIds, $message)
     {
-	    $fields = array(
+	$fields = array(
             'registration_ids' => $registrationIds,
             'data' => $message,
         );
-        
-        $request = $this->client->post('/gcm/send')
-            ->addPostFields($fields);
 
+        $this->send($fields);   
+    }
+
+    private function send($fields) 
+    {
+        $request = $this->jsonify($fields);
         $this->response = $request->send();
+    }
+
+    private function jsonify($fields)
+    {
+        return $this->client->post(
+            array('/gcm/send', $fields),
+            array('Content-Type' => 'application/json; charset=utf-8'),
+            json_encode($fields)
+        );
     }
 
     public function add($registrationId, $message) {
@@ -50,10 +62,7 @@ class Gcm {
 
     public function sendQueue() {
         foreach($this->queue as $q) {
-            $request = $this->client->post('/gcm/send')
-                ->addPostFields($q);
-
-            $this->response = $request->send();
+            $this->send($q);
         }
     }
 
