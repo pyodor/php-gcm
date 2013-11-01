@@ -9,6 +9,7 @@ class Gcm {
     private $apiKey;
     private $url = 'https://android.googleapis.com/';
     private $queue = array();
+    private $responses = array();
 
     public function __construct($googleApiKey)
     {
@@ -63,11 +64,22 @@ class Gcm {
     public function sendQueue() {
         foreach($this->queue as $q) {
             $this->send($q);
+            $this->responses[] = $this->decodedResponse(); 
         }
     }
 
     public function getResponse()
     {
-        return $this->response->getBody(true);
+        if(!empty($this->responses)) 
+        {
+            return $this->responses;
+        }
+
+        return $this->decodedResponse(); 
+    }
+
+    private function decodedResponse()
+    {
+        return json_decode($this->response->getBody(true), true);
     }
 }
