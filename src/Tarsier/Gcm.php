@@ -25,7 +25,7 @@ class Gcm {
             )
         ));
 
-        $this->client->setUserAgent('pyodor/php-gcm/0.1.0', true);
+        $this->client->setUserAgent('pyodor/php-gcm/0.2.0', true);
     }
 
 
@@ -64,7 +64,10 @@ class Gcm {
     public function sendQueue() {
         foreach($this->queue as $q) {
             $this->send($q);
-            $this->responses[] = $this->decodedResponse(); 
+            $regId = $q['registration_ids'];
+            $res = $this->decodedResponse();
+            $res['registration_id'] = $regId;
+            $this->responses[] = $res;
         }
     }
 
